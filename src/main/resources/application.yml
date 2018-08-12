@@ -1,2 +1,5 @@
 server:
   port: 10080
+spring:
+  profiles:
+    active: dev
