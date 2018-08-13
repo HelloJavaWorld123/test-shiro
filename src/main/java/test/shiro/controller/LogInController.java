@@ -41,7 +41,7 @@ public class LogInController {
 			@ApiResponse(code = 510,message = "密码过期")
 	})
 	@PostMapping(value = "/login")
-	public ResponseEntity logIn(@RequestParam(value = "username") String username, @RequestParam(value = "password") String password) {
+	public ResponseEntity logIn(@RequestParam(name = "username") String username, @RequestParam(name = "password") String password) {
 		if (StringUtils.isEmpty(username) || StringUtils.isEmpty(password)) {
 			return ResponseEntity.badRequest()
 					.body("缺少参数");
