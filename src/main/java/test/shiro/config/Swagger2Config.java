@@ -1,9 +1,13 @@
 package test.shiro.config;
 
 import com.google.common.base.Predicates;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.web.ServerProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -21,10 +25,15 @@ import springfox.documentation.spring.web.plugins.Docket;
  * ======================
  */
 @Configuration
+@EnableConfigurationProperties(value = {ServerProperties.class})
 public class Swagger2Config {
 
 	@Value(value = "${swagger2.enable}")
 	private Boolean enable;
+
+
+	@Autowired
+	private ServerProperties serverProperties;
 
 	/**
 	 * 构建 工程中
@@ -42,7 +51,7 @@ public class Swagger2Config {
 				.groupName("shiro")
 				.useDefaultResponseMessages(false)
 				.forCodeGeneration(true)
-				.host("127.0.0.1")
+				.host("127.0.0.1:"+serverProperties.getPort())
 				.select()
 				.apis(RequestHandlerSelectors.basePackage("test.shiro.controller"))
 				.paths(Predicates.or(PathSelectors.ant("/api/**")))

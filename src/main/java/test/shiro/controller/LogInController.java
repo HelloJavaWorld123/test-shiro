@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -33,8 +34,8 @@ public class LogInController {
 	 */
 	@ApiOperation(value = "用户登录接口",produces = "application/json")
 	@ApiImplicitParams({
-			@ApiImplicitParam(name = "username",value = "用户姓名",dataType = "String",required = true),
-			@ApiImplicitParam(name = "password",value = "用户密码",dataType = "String",required = true)
+			@ApiImplicitParam(name = "username",value = "用户姓名",dataType = "String",required = true,defaultValue = "小明"),
+			@ApiImplicitParam(name = "password",value = "用户密码",dataType = "String",required = true,defaultValue = "123456")
 	})
 	@ApiResponses(value = {
 			@ApiResponse(code = 200,message = "登录成功"),
@@ -44,6 +45,7 @@ public class LogInController {
 			@ApiResponse(code = 510,message = "密码过期")
 	})
 	@PostMapping(value = "/login")
+	@ResponseBody
 	public ResponseEntity logIn(String username, String password) {
 		if (StringUtils.isEmpty(username) || StringUtils.isEmpty(password)) {
 			return ResponseEntity.badRequest()
