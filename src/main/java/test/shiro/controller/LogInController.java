@@ -5,12 +5,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * ======================
@@ -45,8 +41,7 @@ public class LogInController {
 			@ApiResponse(code = 510,message = "密码过期")
 	})
 	@PostMapping(value = "/login")
-	@ResponseBody
-	public ResponseEntity logIn(String username, String password) {
+	public ResponseEntity logIn(@RequestParam(value = "username") String username, @RequestParam(value = "password") String password) {
 		if (StringUtils.isEmpty(username) || StringUtils.isEmpty(password)) {
 			return ResponseEntity.badRequest()
 					.body("缺少参数");

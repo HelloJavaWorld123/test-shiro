@@ -41,25 +41,13 @@ public class ApiOperationAop {
 	/**
 	 * 切入点
 	 */
-	@Pointcut(value = "execution(* test.shiro.controller..*.*(..)) || @annotation(org.springframework.web.bind.annotation.RequestMapping)")
+	@Pointcut(value = "execution(* test.shiro.controller..*.*(..))")
 	public void pointCut(){
 	}
 
 
 	@Around(value = "pointCut()")
 	public Object around(ProceedingJoinPoint point){
-		otherOPeration(point);
-		Object result = null;
-		try {
-			result = point.proceed();
-		} catch (Throwable throwable) {
-			throwable.printStackTrace();
-			logger.info("执行出现异常");
-		}
-		return result;
-	}
-
-	private void otherOPeration(ProceedingJoinPoint point) {
 		long startTime = System.currentTimeMillis();
 
 		//获取请求相关的信息
@@ -76,8 +64,18 @@ public class ApiOperationAop {
 
 		String parameters = JSON.toJSONString(args);
 		logger.info("当前调用的方法是：{} ----->入参是：{}",methodName,parameters);
-		saveLog(startTime,requestURI,ipAddresss,methodName);
 
+		Object result = null;
+		try {
+			result = point.proceed();
+		} catch (Throwable throwable) {
+			throwable.printStackTrace();
+			logger.info("执行出现异常");
+		}
+
+//		saveLog(startTime,requestURI,ipAddresss,methodName);
+
+		return result;
 	}
 
 	private void saveLog(long startTime, String requestURI, String ipAddresss, String methodName) {
