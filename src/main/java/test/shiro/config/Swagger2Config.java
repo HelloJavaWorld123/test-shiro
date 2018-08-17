@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.Environment;
+import org.springframework.context.annotation.Profile;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -25,6 +25,7 @@ import springfox.documentation.spring.web.plugins.Docket;
  * ======================
  */
 @Configuration
+@Profile({"!pro"})
 @EnableConfigurationProperties(value = {ServerProperties.class})
 public class Swagger2Config {
 
