@@ -7,6 +7,7 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import test.shiro.dto.UserLogInDTO;
 
 /**
  * ======================
@@ -24,8 +25,7 @@ public class LogInController {
 
 	/**
 	 * 用户登录接口
-	 * @param username ：当前用户的用户名或者手机号 （唯一代表当前用户的标识）
-	 * @param password ： 当前用户的密码（经过处理以后的密码）
+	 * @param inDTO ：当前用户的用户名或者手机号 （唯一代表当前用户的标识） 当前用户的密码（经过处理以后的密码）
 	 * @return ：登录是否或者对应的异常或者当前用户的授权信息
 	 */
 	@ApiOperation(value = "用户登录接口",produces = "application/json")
@@ -41,14 +41,14 @@ public class LogInController {
 			@ApiResponse(code = 510,message = "密码过期")
 	})
 	@PostMapping(value = "/login")
-	public ResponseEntity logIn(@RequestParam(name = "username") String username, @RequestParam(name = "password") String password) {
-		if (StringUtils.isEmpty(username) || StringUtils.isEmpty(password)) {
+	public ResponseEntity logIn(@RequestBody UserLogInDTO inDTO) {
+		if (StringUtils.isEmpty(inDTO.getUsername()) || StringUtils.isEmpty(inDTO.getPassword())) {
 			return ResponseEntity.badRequest()
 					.body("缺少参数");
 		}
 
 		//构建当前用户的令牌
-		UsernamePasswordToken token = new UsernamePasswordToken(username.trim(), password);
+		UsernamePasswordToken token = new UsernamePasswordToken(inDTO.getUsername().trim(), inDTO.getPassword());
 
 		//获取当前主体
 		Subject subject = SecurityUtils.getSubject();

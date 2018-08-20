@@ -29,10 +29,6 @@ import springfox.documentation.spring.web.plugins.Docket;
 @EnableConfigurationProperties(value = {ServerProperties.class})
 public class Swagger2Config {
 
-	@Value(value = "${swagger2.enable}")
-	private Boolean enable;
-
-
 	@Autowired
 	private ServerProperties serverProperties;
 
@@ -48,7 +44,6 @@ public class Swagger2Config {
 	@Bean
 	public Docket docket(){
 		return new Docket(DocumentationType.SWAGGER_2)
-				.enable(this.enable)
 				.groupName("shiro")
 				.useDefaultResponseMessages(false)
 				.forCodeGeneration(true)
@@ -77,14 +72,5 @@ public class Swagger2Config {
 				.licenseUrl("http://www.apache.org/licenses/LICENSE-2.0")
 				.build();
 
-	}
-
-
-	public Boolean getEnable() {
-		return enable;
-	}
-
-	public void setEnable(Boolean enable) {
-		this.enable = enable;
 	}
 }

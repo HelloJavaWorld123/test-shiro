@@ -1,2 +1,30 @@
-swagger2:
-  enable: true
+spring:
+  datasource:
+    username: root
+    password: 1234567890
+    url: jdbc:mysql://localhost:3306
+    driver-class-name: com.mysql.jdbc.Driver
+    #建立链接时  初始化的物理链接的个数
+    initialSize: 10
+    #最大链接池数量
+    maxActive: 15
+    #最小连接池数量
+    minIdle: 5
+    #最大连接池数量
+    maxIdle: 10
+    #获取链接时 最大等待时间 单位 毫秒 （启用后 默认使用 公平锁 ，可以配置使用非公平锁）
+    maxWait: 60000
+    #检测查询语句是否是有效的语句
+    validationQuery: select 'x'
+    #申请链接时 检测SQL语句的有效性
+    testOnBorrow: true
+    #归还链接时 检测sql语句的有效性
+    testOnReturn: false
+    testWhileIdle: true
+    poolPreparedStatements: false
+    filters: log4j,wall,stat
+    #间隔多长时间 对链接进行销毁的检测
+    timeBetweenEvictionRunsMillis: 60000
+    #配置链接池中 最大的空闲时间
+    minEvictableIdleTimeMillis: 30000
+    maxOpenPreparedStatements: 10
