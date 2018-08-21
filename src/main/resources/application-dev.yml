@@ -22,9 +22,10 @@ spring:
     testOnReturn: false
     testWhileIdle: true
     poolPreparedStatements: false
-    filters: log4j,wall,stat
+    filters: slf4j,wall,stat
     #间隔多长时间 对链接进行销毁的检测
     timeBetweenEvictionRunsMillis: 60000
     #配置链接池中 最大的空闲时间
     minEvictableIdleTimeMillis: 30000
     maxOpenPreparedStatements: 10
+    type: com.alibaba.druid.pool.DruidDataSource
