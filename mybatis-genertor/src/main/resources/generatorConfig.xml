@@ -19,7 +19,7 @@
 
         <javaClientGenerator type="XMLMAPPER"
                              targetPackage="test.shiro.dao"
-                             targetProject="D:\Project\test-shiro\src\main\java\""/>
+                             targetProject="D:\Project\test-shiro\src\main\java\"/>
 
         <table tableName="auth_user" domainObjectName="User" alias="_User">
             <columnOverride column="id" property="id"/>
