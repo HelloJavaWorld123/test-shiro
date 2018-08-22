@@ -3,15 +3,21 @@
         PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <generatorConfiguration>
-    <context id="Mysql" targetRuntime="MyBatis3">
+    <context id="MyBatisFirst" targetRuntime="MyBatis3">
 
-        <jdbcConnection driverClass="${spring.datasource.driverClassName}"
-                        connectionURL="${spring.datasource.url}"
-                        password="${spring.datasource.password}"
-                        userId="${spring.datasource.username}"/>
+        <!--引入自定义的 插件-->
+        <plugin type="shiro.mybatis.plugin.MyGenertorPlugin"/>
+
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/rxk"
+                        password="1234567890"
+                        userId="root"/>
+
 
         <javaModelGenerator targetPackage="test.shiro.model"
-                            targetProject="D:\Project\test-shiro\src\main\java"/>
+                            targetProject="D:\Project\test-shiro\src\main\java">
+            <property name="" value=""/>
+        </javaModelGenerator>
 
         <sqlMapGenerator targetPackage="test.shiro.dao.mapper"
                          targetProject="D:\Project\test-shiro\src\main\java\"/>
@@ -22,7 +28,20 @@
                              targetProject="D:\Project\test-shiro\src\main\java\"/>
 
         <table tableName="auth_user" domainObjectName="User" alias="_User">
+            <generatedKey column="id" sqlStatement="SELECT REPLACE(UUID(), '-', '')"/>
             <columnOverride column="id" property="id"/>
+            <columnOverride column="name" property="name"/>
+            <columnOverride column="phone" property="phone"/>
+            <columnOverride column="age" property="age"/>
+            <columnOverride column="address" property="address"/>
+            <columnOverride column="sex" property="sex"/>
+            <columnOverride column="status" property="status"/>
+            <columnOverride column="salt" property="salt"/>
+            <columnOverride column="update_time" property="updateTime"/>
+            <columnOverride column="update_by" property="updateBy"/>
+            <columnOverride column="create_time" property="createTime"/>
+            <columnOverride column="create_by" property="createBy"/>
+            <columnOverride column="deleteFlag" property="deleteFlag"/>
         </table>
 
     </context>

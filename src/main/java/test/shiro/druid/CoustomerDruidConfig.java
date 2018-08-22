@@ -44,7 +44,6 @@ public class CoustomerDruidConfig {
 		dataSource.setPassword(properties.getPassword());
 		dataSource.setUsername(properties.getUsername());
 		dataSource.setMaxActive(properties.getMaxActive());
-		dataSource.setMaxIdle(properties.getMaxIdle());
 		dataSource.setMinIdle(properties.getMinIdle());
 		dataSource.setMaxWait(properties.getMaxWait());
 		dataSource.setDbType(properties.getType());
@@ -69,6 +68,7 @@ public class CoustomerDruidConfig {
 			e.printStackTrace();
 			log.info("数据库配置过滤器时出现异常：{}",e.getMessage());
 		}
+
 		return dataSource;
 	}
 
@@ -99,6 +99,8 @@ public class CoustomerDruidConfig {
 		wallConfig.setSelectAllColumnAllow(false);
 		//是否 检查 删除语句的where语句是否成立
 		wallConfig.setDeleteWhereAlwayTrueCheck(true);
+		//没有参数化的SQL 进行合并统计
+		wallConfig.setMergeAllow(true);
 		return wallConfig;
 	}
 

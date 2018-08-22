@@ -26,8 +26,6 @@ public class DuridConfigProperties {
 
 	private int minIdle;
 
-	private int maxIdle;
-
 	private int maxActive;
 
 	private int maxWait;
